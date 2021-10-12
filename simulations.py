@@ -30,6 +30,7 @@ class SIS:
     def get_G(self):
         return self.G
 
+    # thr refers to the awareness model, not the epidemic threshold
     def simulate(self, tau, gamma, initial_infections, t_max, awareness, awareness_model='linear', thr=0.5,
                  reinfection=False, reinfection_fraction=0):
         # awareness = (c_L, c_C, c_G)
@@ -217,30 +218,31 @@ class SIS:
 
         return np.array(times), np.array(infected_per_iter), np.array(infected_per_day), inf_per_com
 
-    def calculate_epidemic_threshold(self, gamma, awareness, max_tau=1, t_max=50,
-                                     step=0.05, thr=0.0005, realizations=5, awareness_model='linear'):
+    # def calculate_epidemic_threshold(self, gamma, awareness, max_tau=1, t_max=50,
+    #                                  step=0.05, thr=0.0005, realizations=5, awareness_model='linear'):
+    #
+    #     N = self.G.get_number_of_nodes()
+    #     # rhos = []
+    #
+    #     for tau in np.arange(0, max_tau, step):
+    #
+    #         fractions = np.zeros(realizations)
+    #         for i in range(realizations):
+    #             # patients_zero = np.random.choice(list(self.G.get_graph().nodes), int(N*0.01), replace=False)
+    #             patients_zero = np.array(self.G.get_graph().nodes)
+    #             times, infected_per_iter, infected_per_day, infected_per_community_per_time = \
+    #                 self.simulate(tau, gamma, patients_zero, t_max, awareness, awareness_model=awareness_model)
+    #             avg_infected = np.sum(infected_per_day[-int(t_max/10):])/int(t_max/10)
+    #             fractions[i] = avg_infected/N
+    #
+    #         rho = np.mean(fractions)
+    #         # rhos.append(fractions)
+    #         if rho > thr:
+    #             tau_c = tau - step
+    #             return tau_c
+    #     return -1
 
-        N = self.G.get_number_of_nodes()
-        # rhos = []
-
-        for tau in np.arange(0, max_tau, step):
-
-            fractions = np.zeros(realizations)
-            for i in range(realizations):
-                # patients_zero = np.random.choice(list(self.G.get_graph().nodes), int(N*0.01), replace=False)
-                patients_zero = np.array(self.G.get_graph().nodes)
-                times, infected_per_iter, infected_per_day, infected_per_community_per_time = \
-                    self.simulate(tau, gamma, patients_zero, t_max, awareness, awareness_model=awareness_model)
-                avg_infected = np.sum(infected_per_day[-int(t_max/10):])/int(t_max/10)
-                fractions[i] = avg_infected/N
-
-            rho = np.mean(fractions)
-            # rhos.append(fractions)
-            if rho > thr:
-                tau_c = tau - step
-                return tau_c
-        return -1
-
+    # this is with the surviving runs method
     def calculate_epidemic_threshold_new(self, gamma, awareness, max_tau=2, t_max=50,
                                      step=0.05, thr=0.0025, realizations=10, max_realizations=15, awareness_model='linear'):
 
