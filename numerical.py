@@ -180,12 +180,8 @@ class SIS:
             return np.array(eqs)
 
         y0 = np.copy(maximum_fraction)
-        sol = least_squares(equations, y0/2, bounds=(np.zeros(number_of_non_zeros), maximum_fraction))
+        sol = least_squares(equations, y0, bounds=(np.zeros(number_of_non_zeros), maximum_fraction))
         cost = sol.cost
-
-        if cost > 0.1:
-            print('Numerical solution not found')
-            return -1
 
         trials = 0
         while cost > 0.1 and trials < y0.size:

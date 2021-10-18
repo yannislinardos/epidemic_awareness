@@ -93,8 +93,6 @@ class HierarchicalConfigurationModel:
             self.p_out_H[c, :p.size] = p
 
 
-
-
     def from_node_to_compartment(self, node):
 
         H = self.get_community_per_node()[node]

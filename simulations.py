@@ -244,7 +244,7 @@ class SIS:
 
     # this is with the surviving runs method
     def calculate_epidemic_threshold_new(self, gamma, awareness, max_tau=2, t_max=50,
-                                     step=0.05, thr=0.0025, realizations=10, max_realizations=15, awareness_model='linear'):
+                                     step=0.05, thr=0.0025, realizations=15, max_realizations=30, awareness_model='linear'):
 
         N = self.G.get_number_of_nodes()
 
