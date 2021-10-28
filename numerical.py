@@ -319,7 +319,7 @@ class SIS:
 
             rho, _per_com = self.find_stability(tau, gamma, awareness, linear)
             if rho > max(thr, 1/N):
-                tau_c = tau #- step
+                tau_c = tau - step
                 break
 
         return tau_c

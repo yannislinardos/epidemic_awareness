@@ -268,7 +268,7 @@ class SIS:
             # if they pass the threshold once, this is the tau_c
             if len(fractions) != 0:
                 if np.mean(fractions) > max(thr, 1/N):
-                    return tau
+                    return tau - step
 
             #     if avg_infected != 0:
             #         fractions.append(avg_infected / N)
